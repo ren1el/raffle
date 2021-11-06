@@ -21,10 +21,12 @@ const defaultStyle = StyleSheet.create({
     paddingRight: 10,
     display: 'flex',
     alignItems: 'center',
+    backgroundColor: theme.colors.pink,
   },
   text: {
     fontWeight: 'bold',
     fontSize: theme.fontSizes.button,
+    color: theme.colors.white,
   },
 })
 

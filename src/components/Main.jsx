@@ -19,8 +19,6 @@ const Main = () => {
       <Button
         text={'Choose a Winner'}
         onPress={() => {console.log('pressed')}}
-        containerStyle={style.button}
-        textStyle={style.buttonText}
       />
     </View>
   );
@@ -50,13 +48,6 @@ const style = StyleSheet.create({
   period: {
     color: theme.colors.darkBlue,
     fontSize: 50,
-  },
-  button: {
-    backgroundColor: theme.colors.pink,
-    color: theme.colors.white,
-  },
-  buttonText: {
-    color: theme.colors.white,
   },
 });
 
