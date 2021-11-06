@@ -1,18 +1,21 @@
 import React from 'react'
 import Constants from 'expo-constants'
-import { Text, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import theme from '../theme';
 import Button from './Button';
+import Text from './Text';
 
 const Main = () => {
   return (
     <View style={style.mainContainer}>
-      <Text>
-        <Text style={[style.heading, style.title]}>Raffle</Text>
-        <Text style={[style.heading, style.period]}>.</Text>
+      <Text style={style.heading}>
+        <Text style={style.title}>Raffle</Text>
+        <Text style={style.period}>.</Text>
       </Text>
       <View style={style.listContainer}>
-        <Text>Main Content</Text>
+        <Text>
+          Main Content
+        </Text>
       </View>
       <Button
         text={'Choose a Winner'}
