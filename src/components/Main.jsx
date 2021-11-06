@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import theme from '../theme';
 import Button from './Button';
 import Text from './Text';
+import NamesList from './NamesList';
 
 const Main = () => {
   return (
@@ -13,9 +14,7 @@ const Main = () => {
         <Text style={style.period}>.</Text>
       </Text>
       <View style={style.listContainer}>
-        <Text>
-          Main Content
-        </Text>
+        <NamesList />
       </View>
       <Button
         text={'Choose a Winner'}
@@ -30,7 +29,7 @@ const Main = () => {
 const style = StyleSheet.create({
   mainContainer: {
     marginTop: Constants.statusBarHeight,
-    marginBottom: 50,
+    marginBottom: Constants.statusBarHeight,
     flexGrow: 1,
     flexShrink: 1,
     backgroundColor: theme.colors.offwhite,
@@ -38,6 +37,7 @@ const style = StyleSheet.create({
   },
   heading: {
     fontWeight: theme.fontWeights.bold,
+    marginBottom: 15,
   },
   listContainer: {
     flex: 1,
