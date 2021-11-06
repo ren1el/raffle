@@ -1,4 +1,3 @@
-
 const theme = {
   colors: {
     darkBlue: '#424761',
@@ -12,10 +11,14 @@ const theme = {
     logo: 40,
     heading: 30,
     subheading: 20,
+    button: 18,
   },
   fontWeights: {
     normal: '400',
     bold: '700',
+  },
+  style: {
+    borderRadius: 5,
   },
 };
 
