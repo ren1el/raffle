@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import theme from '../theme';
 import Button from './Button';
 import Text from './Text';
-import NamesList from './NamesList';
+import EntryList from './EntryList';
 
 const Main = () => {
   return (
@@ -14,7 +14,7 @@ const Main = () => {
         <Text style={style.period}>.</Text>
       </Text>
       <View style={style.listContainer}>
-        <NamesList />
+        <EntryList />
       </View>
       <Button
         text={'Choose a Winner'}

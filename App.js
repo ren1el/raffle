@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import Main from './src/components/Main'
-import NamesContext from './src/namesContext'
+import EntryContext from './src/entryContext'
 
 const App = () => {
-  const [names, setNames] = useState([])
-  const contextValue = { names, setNames }
+  const [entries, setEntries] = useState([])
+  const contextValue = { entries, setEntries }
 
   return (
-    <NamesContext.Provider value={contextValue}>
+    <EntryContext.Provider value={contextValue}>
       <Main />
-    </NamesContext.Provider>
+    </EntryContext.Provider>
   )
 }
 
