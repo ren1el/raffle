@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NativeRouter } from 'react-router-native'
 import Main from './src/components/Main'
 import EntryContext from './src/entryContext'
 
@@ -8,7 +9,9 @@ const App = () => {
 
   return (
     <EntryContext.Provider value={contextValue}>
-      <Main />
+      <NativeRouter>
+        <Main />
+      </NativeRouter>
     </EntryContext.Provider>
   )
 }

@@ -4,10 +4,12 @@ import EntryContext from '../entryContext'
 import EntryStorage from '../utils/entryStorage'
 import Button from './Button'
 import Text from './Text'
+import { useHistory } from 'react-router-native'
 
 const EntryList = () => {
   const entryContext = useContext(EntryContext)
   const entryStorage = new EntryStorage()
+  const history = useHistory()
 
   useEffect(() => {
     const getEntries = async () => {
@@ -36,9 +38,14 @@ const EntryList = () => {
   return (
     <View>
       {entryContext.entries.map(entry => <Text key={entry.name}>{entry.name} {entry.multiplier}</Text>)}
+      <Button text={'Add Entry'} onPress={() => history.push('/add-entry')} />
       <Button text={'Add Name'} onPress={() => handleAddEntry('asdf')} />
       <Button text={'Remove Name'} onPress={() => handleRemoveEntry('asdf')} />
       <Button text={'Clear Names'} onPress={() => handleClearEntries()} />
+      <Button
+        text={'Choose a Winner'}
+        onPress={() => {console.log('pressed')}}
+      />
     </View>
   )
 }
