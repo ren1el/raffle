@@ -1,5 +1,4 @@
 import React from 'react'
-import Constants from 'expo-constants'
 import { StyleSheet, View } from 'react-native'
 import theme from '../theme';
 import Button from './Button';
@@ -26,8 +25,8 @@ const Main = () => {
 
 const style = StyleSheet.create({
   mainContainer: {
-    marginTop: Constants.statusBarHeight,
-    marginBottom: Constants.statusBarHeight,
+    marginTop: 30,
+    marginBottom: 30,
     flexGrow: 1,
     flexShrink: 1,
     backgroundColor: theme.colors.offwhite,
