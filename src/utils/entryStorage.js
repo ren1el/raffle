@@ -28,7 +28,7 @@ class EntryStorage {
   }
 
   async addEntry(name, multiplier) {
-    console.log(`Adding ${name} to entry list...`)
+    console.log(`Adding ${name} (x${multiplier}) to entry list...`)
     const storedEntries = await this.getEntries()
     const isStored = storedEntries.some(storedEntry => storedEntry.name === name)
 

@@ -22,7 +22,7 @@ const style = StyleSheet.create({
   },
   heading: {
     fontSize: theme.fontSizes.logo,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   title: {
     color: theme.colors.pink,

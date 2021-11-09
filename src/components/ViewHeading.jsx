@@ -15,6 +15,7 @@ const style = StyleSheet.create({
   heading: {
     fontSize: theme.fontSizes.heading,
     fontWeight: theme.fontWeights.bold,
+    marginBottom: 25,
   },
 })
 
