@@ -22,6 +22,7 @@ const defaultStyle = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     backgroundColor: theme.colors.pink,
+    marginBottom: 10,
   },
   text: {
     fontWeight: 'bold',

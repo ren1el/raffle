@@ -89,7 +89,6 @@ const style = StyleSheet.create({
     borderColor: theme.colors.pink,
   },
   button: {
-    marginBottom: 10,
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,

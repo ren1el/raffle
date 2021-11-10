@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import theme from '../theme';
-import EntryList from './EntryList';
 import { Route, Switch, Redirect } from 'react-router-native'
 import AddEntry from './AddEntry';
 import Logo from './Logo';
+import Home from './Home';
 
 const Main = () => {
   return (
@@ -13,7 +13,7 @@ const Main = () => {
       <View style={style.viewContainer}>
         <Switch>
           <Route path="/" exact>
-            <EntryList />
+            <Home />
           </Route>
           <Route path="/add-entry" exact>
             <AddEntry />
