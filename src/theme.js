@@ -8,7 +8,7 @@ const theme = {
   },
   fontSizes: {
     body: 18,
-    logo: 40,
+    logo: 55,
     heading: 25,
     subheading: 20,
     button: 18,
@@ -19,7 +19,7 @@ const theme = {
     bolder: '900',
   },
   style: {
-    borderRadius: 5,
+    borderRadius: 25,
   },
 };
 

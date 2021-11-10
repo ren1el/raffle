@@ -15,8 +15,8 @@ const Button = ({ text, onPress, containerStyle, textStyle }) => {
 const defaultStyle = StyleSheet.create({
   button: {
     borderRadius: theme.style.borderRadius,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
     display: 'flex',
