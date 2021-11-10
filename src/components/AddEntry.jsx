@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import theme from '../theme'
 import ViewHeading from './ViewHeading'
@@ -13,6 +13,10 @@ const AddEntry = () => {
   const nameInput = useRef()
   const multiplierInput = useRef()
   const history = useHistory()
+
+  useEffect(() => {
+    nameInput.current.focus()
+  }, [])
 
   const handleSave = async () => {
     const multiplierNum = Number.parseInt(multiplier)
