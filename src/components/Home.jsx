@@ -1,36 +1,38 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-import EntryContext from '../entryContext'
-import EntryStorage from '../utils/entryStorage'
 import Button from './Button'
 import { useHistory } from 'react-router-native'
 import EntryList from './EntryList'
 import theme from '../theme'
 import Text from './Text'
+import useEntries from '../hooks/useEntries'
 
 const Home = () => {
-  const entryContext = useContext(EntryContext)
-  const entryStorage = new EntryStorage()
+  const { entries, getEntries, clearEntries } = useEntries()
   const history = useHistory()
 
+  useEffect(() => {
+    const getStoredEntries = async () => await getEntries()
+    getStoredEntries()
+  }, [])
+
   const handleClearEntries = async () => {
-    if (entryContext.entries <= 0){
+    if (entries <= 0){
       return
     }
 
-    await entryStorage.clearAllEntries()
-    entryContext.setEntries([])
+    await clearEntries()
   }
 
   const handleChooseWinner = async () => {
-    if (entryContext.entries <= 0) {
+    if (entries <= 0) {
       return
     }
   }
 
   return (
     <View style={style.container}>
-      {entryContext.entries.length > 0 ? <EntryList /> : <Text>No entries yet!</Text>}
+      {entries.length > 0 ? <EntryList /> : <Text>No entries yet!</Text>}
       <View>
         <View style={style.addClearContainer}>
           <Button containerStyle={style.clearButton} text={'Clear'} onPress={() => handleClearEntries()} />

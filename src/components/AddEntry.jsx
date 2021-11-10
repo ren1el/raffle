@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import theme from '../theme'
 import ViewHeading from './ViewHeading'
 import Button from './Button'
-import EntryStorage from '../utils/entryStorage'
 import { useHistory } from 'react-router-native'
-import EntryContext from '../entryContext'
+import useEntries from '../hooks/useEntries'
 
 const AddEntry = () => {
   const [name, setName] = useState('')
-  const [multiplier, setMultiplier] = useState('1')
-  const entryStorage = new EntryStorage()
-  const entryContext = useContext(EntryContext)
+  const [multiplier, setMultiplier] = useState('0')
+  const { addEntry } = useEntries()
   const nameInput = useRef()
   const multiplierInput = useRef()
   const history = useHistory()
@@ -31,8 +29,7 @@ const AddEntry = () => {
       return
     }
 
-    const newEntries = await entryStorage.addEntry(name, multiplier)
-    entryContext.setEntries(newEntries)
+    await addEntry(name, multiplier)
     nameInput.current.blur()
     multiplierInput.current.blur()
     history.push('/')
@@ -54,7 +51,6 @@ const AddEntry = () => {
           placeholder={'# Entries'}
           keyboardType={'numeric'}
           returnKeyType={'done'}
-          defaultValue={'1'}
           onChangeText={setMultiplier}
           ref={multiplierInput}
         />

@@ -1,22 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
-import EntryContext from '../entryContext'
+import useEntries from '../hooks/useEntries'
 import theme from '../theme'
-import EntryStorage from '../utils/entryStorage'
 import Text from './Text'
 
 const EntryList = () => {
-  const entryContext = useContext(EntryContext)
-  const entryStorage = new EntryStorage()
-
-  useEffect(() => {
-    const getEntries = async () => {
-      const storedEntries = await entryStorage.getEntries()
-      entryContext.setEntries(storedEntries)
-    }
-
-    getEntries()
-  }, [])
+  const { entries } = useEntries()
 
   return (
     <View style={style.container}>
@@ -27,7 +16,7 @@ const EntryList = () => {
       </View>
       <FlatList
         style={style.list}
-        data={entryContext.entries}
+        data={entries}
         renderItem={({ item }) => <Entry entry={item} />}
         keyExtractor={item => item.name}
       />

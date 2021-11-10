@@ -34,7 +34,6 @@ class EntryStorage {
 
     if (isStored) {
       console.log(`Tried adding ${name} but they have already been stored`)
-
       return storedEntries
     }
 
@@ -44,7 +43,6 @@ class EntryStorage {
     })
 
     await AsyncStorage.setItem(this.key, JSON.stringify(storedEntries))
-
     return storedEntries
   }
 
@@ -55,17 +53,15 @@ class EntryStorage {
 
     if (!isStored) {
       console.log(`Tried removing ${name} but they couldn't be found`)
-
       return storedEntries
     }
 
     const updatedEntries = storedEntries.filter(storedEntry => storedEntry.name !== name)
     await AsyncStorage.setItem(this.key, JSON.stringify(updatedEntries))
-
     return updatedEntries
   }
 
-  async clearAllEntries() {
+  async clearEntries() {
     console.log('Clearing all entries')
     await AsyncStorage.setItem(this.key, '[]')
   }
