@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <View style={style.container}>
-      {entries.length > 0 ? <EntryList /> : <Text>No entries yet!</Text>}
+      {entries.length > 0 ? <EntryList /> : <NoEntries />}
       <View>
         <View style={style.addClearContainer}>
           <Button containerStyle={style.clearButton} text={'Clear'} onPress={() => handleClearEntries()} />
@@ -43,6 +43,15 @@ const Home = () => {
           onPress={handleChooseWinner}
         />
       </View>
+    </View>
+  )
+}
+
+const NoEntries = () => {
+  return (
+    <View style={style.noEntriesContainer}>
+      <Text>You have no entries yet!</Text>
+      <Text style={{ textAlign: 'center' }}>Press the Add button below to add your first entry.</Text>
     </View>
   )
 }
@@ -64,6 +73,11 @@ const style = StyleSheet.create({
     backgroundColor: theme.colors.darkBlue,
     flex: 1,
     marginRight: 10,
+  },
+  noEntriesContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 
