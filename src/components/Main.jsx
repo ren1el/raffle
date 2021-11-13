@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-native'
 import AddEntry from './AddEntry';
 import Logo from './Logo';
 import Home from './Home';
+import EditEntry from './EditEntry';
 
 const Main = () => {
   return (
@@ -17,6 +18,9 @@ const Main = () => {
           </Route>
           <Route path="/add-entry" exact>
             <AddEntry />
+          </Route>
+          <Route path="/edit-entry/:id" exact>
+            <EditEntry />
           </Route>
           <Redirect to="/" />
         </Switch>

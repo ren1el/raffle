@@ -1,24 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
-import theme from '../theme'
-import ViewHeading from './ViewHeading'
-import Button from './Button'
-import { useHistory } from 'react-router-native'
+import { useParams, useHistory } from 'react-router-native'
 import useEntries from '../hooks/useEntries'
+import theme from '../theme'
+import Button from './Button'
+import ViewHeading from './ViewHeading'
 
-const AddEntry = () => {
-  const [name, setName] = useState('')
-  const [multiplier, setMultiplier] = useState(0)
-  const { addEntry } = useEntries()
+const EditEntry = () => {
+  const params = useParams()
+  const { getEntry, editEntry } = useEntries()
+  const entry = getEntry(params.id)
+
+  if (entry === undefined) {
+    history.push('/')
+    return
+  }
+
+  const [name, setName] = useState(entry.name)
+  const [multiplier, setMultiplier] = useState(entry.multiplier)
+  const history = useHistory()
   const nameInput = useRef()
   const multiplierInput = useRef()
-  const history = useHistory()
 
   useEffect(() => {
     nameInput.current.focus()
   }, [])
 
-  const handleSave = async () => {
+  const handleEdit = async () => {
     if (name === '') {
       console.log('Please enter a name.')
       return
@@ -27,15 +35,13 @@ const AddEntry = () => {
       return
     }
 
-    await addEntry(name, multiplier)
-    nameInput.current.blur()
-    multiplierInput.current.blur()
+    await editEntry(entry, { name, multiplier: multiplier })
     history.push('/')
   }
 
   return (
     <View>
-      <ViewHeading title={'Add Entry'} />
+      <ViewHeading title={`Edit ${entry.name}'s Entry`} />
       <View style={style.flexRowContainer}>
         <TextInput
           style={[style.input, style.nameInput]}
@@ -43,7 +49,7 @@ const AddEntry = () => {
           returnKeyType={'done'}
           onChangeText={setName}
           ref={nameInput}
-        />
+          defaultValue={name} />
         <TextInput
           style={[style.input, style.entriesInput]}
           placeholder={'# Entries'}
@@ -51,11 +57,11 @@ const AddEntry = () => {
           returnKeyType={'done'}
           onChangeText={(value) => {value === '' ? setMultiplier(0) : setMultiplier(Number.parseInt(value))}}
           ref={multiplierInput}
-        />
+          defaultValue={entry.multiplier.toString()} />
       </View>
       <Button
         text={'Save'}
-        onPress={handleSave} />
+        onPress={handleEdit} />
       <Button
         containerStyle={style.cancelButton}
         text={'Cancel'}
@@ -89,4 +95,4 @@ const style = StyleSheet.create({
   },
 })
 
-export default AddEntry
+export default EditEntry

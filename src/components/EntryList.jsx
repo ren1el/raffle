@@ -1,5 +1,6 @@
 import React from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet, View } from 'react-native'
+import { useHistory } from 'react-router-native'
 import useEntries from '../hooks/useEntries'
 import theme from '../theme'
 import Text from './Text'
@@ -25,11 +26,15 @@ const EntryList = () => {
 }
 
 const Entry = ({ entry }) => {
+  const history = useHistory()
+
   return (
     <View style={style.row}>
       <Text style={[style.column, style.name]}>{entry.name}</Text>
       <Text style={[style.column, style.centerColumn]}>{entry.multiplier}</Text>
-      <Text style={[style.column, style.centerColumn]}>{'Edit'}</Text>
+      <Pressable style={style.column} onPress={() => {history.push(`/edit-entry/${entry.id}`)}}>
+        <Text style={style.centerColumn}>{'Edit'}</Text>
+      </Pressable>
     </View>
   )
 }
