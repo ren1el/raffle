@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-native'
 import useEntries from '../hooks/useEntries'
 import theme from '../theme'
 import Button from './Button'
+import Modal from './Modal'
 import ViewHeading from './ViewHeading'
 
 const EditEntry = () => {
@@ -18,6 +19,7 @@ const EditEntry = () => {
 
   const [name, setName] = useState(entry.name)
   const [multiplier, setMultiplier] = useState(entry.multiplier)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
   const nameInput = useRef()
   const multiplierInput = useRef()
@@ -36,11 +38,16 @@ const EditEntry = () => {
     }
 
     await editEntry(entry, { name, multiplier: multiplier })
-    history.push('/')
+    setIsModalVisible(true)
   }
 
   return (
     <View>
+      <Modal
+        isVisible={isModalVisible}
+        setIsVisible={setIsModalVisible}
+        onClose={() => history.push('/')}
+        message={'Entry successfully saved.'} />
       <ViewHeading title={`Edit ${entry.name}'s Entry`} />
       <View style={style.flexRowContainer}>
         <TextInput
