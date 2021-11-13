@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import theme from '../theme';
 import { Route, Switch, Redirect } from 'react-router-native'
@@ -6,8 +6,16 @@ import AddEntry from './AddEntry';
 import Logo from './Logo';
 import Home from './Home';
 import EditEntry from './EditEntry';
+import useEntries from '../hooks/useEntries';
 
 const Main = () => {
+  const { getEntries } = useEntries()
+
+  useEffect(() => {
+    const getStoredEntries = async () => {await getEntries()}
+    getStoredEntries()
+  })
+
   return (
     <View style={style.mainContainer}>
       <Logo />

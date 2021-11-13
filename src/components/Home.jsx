@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import Button from './Button'
 import { useHistory } from 'react-router-native'
@@ -8,13 +8,8 @@ import Text from './Text'
 import useEntries from '../hooks/useEntries'
 
 const Home = () => {
-  const { entries, getEntries, clearEntries } = useEntries()
+  const { entries, clearEntries } = useEntries()
   const history = useHistory()
-
-  useEffect(() => {
-    const getStoredEntries = async () => await getEntries()
-    getStoredEntries()
-  }, [])
 
   const handleClearEntries = async () => {
     if (entries <= 0){
