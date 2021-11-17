@@ -35,7 +35,7 @@ const EditEntry = () => {
       setModalMessage('Please enter a name.')
       setIsErrorModalVisible(true)
       return
-    } else if (multiplier <= 0) {
+    } else if (multiplier <= 0 || isNaN(multiplier)) {
       setModalMessage('Please enter a number greater than 0.')
       setIsErrorModalVisible(true)
       return

@@ -31,7 +31,7 @@ const AddEntry = () => {
     if (name === '') {
       showErrorModal('Please enter a name.')
       return
-    } else if (multiplier <= 0) {
+    } else if (multiplier <= 0 || isNaN(multiplier)) {
       showErrorModal('Please enter a number greater than 0.')
       return
     }
