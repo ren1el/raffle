@@ -5,10 +5,14 @@ import ViewHeading from './ViewHeading'
 import Button from './Button'
 import { useHistory } from 'react-router-native'
 import useEntries from '../hooks/useEntries'
+import Modal from './Modal'
 
 const AddEntry = () => {
   const [name, setName] = useState('')
   const [multiplier, setMultiplier] = useState(0)
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false)
+  const [isErrorModalVisible, setIsErrorModalVisible] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
   const { addEntry } = useEntries()
   const nameInput = useRef()
   const multiplierInput = useRef()
@@ -18,23 +22,45 @@ const AddEntry = () => {
     nameInput.current.focus()
   }, [])
 
+  const showErrorModal = (message) => {
+    setModalMessage(message)
+    setIsErrorModalVisible(true)
+  }
+
   const handleSave = async () => {
     if (name === '') {
-      console.log('Please enter a name.')
+      showErrorModal('Please enter a name.')
       return
     } else if (multiplier <= 0) {
-      console.log('Please enter a number greater than 0.')
+      showErrorModal('Please enter a number greater than 0.')
       return
     }
 
-    await addEntry(name, multiplier)
+    try {
+      await addEntry(name, multiplier)
+    } catch(e) {
+      showErrorModal('This name is already in the raffle.')
+      return
+    }
+
     nameInput.current.blur()
     multiplierInput.current.blur()
     history.push('/')
+    setModalMessage('Entry saved successfully.')
+    setIsSuccessModalVisible(true)
   }
 
   return (
     <View>
+      <Modal
+        isVisible={isErrorModalVisible}
+        setIsVisible={setIsErrorModalVisible}
+        message={modalMessage} />
+      <Modal
+        isVisible={isSuccessModalVisible}
+        setIsVisible={setIsSuccessModalVisible}
+        onClose={() => history.push('/')}
+        message={modalMessage} />
       <ViewHeading title={'Add Entry'} />
       <View style={style.flexRowContainer}>
         <TextInput

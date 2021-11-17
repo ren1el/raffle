@@ -12,6 +12,7 @@ const theme = {
     heading: 25,
     subheading: 20,
     button: 18,
+    modal: 15,
   },
   fontWeights: {
     normal: '400',

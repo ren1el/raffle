@@ -19,7 +19,9 @@ const EditEntry = () => {
 
   const [name, setName] = useState(entry.name)
   const [multiplier, setMultiplier] = useState(entry.multiplier)
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false)
+  const [isErrorModalVisible, setIsErrorModalVisible] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
   const history = useHistory()
   const nameInput = useRef()
   const multiplierInput = useRef()
@@ -30,24 +32,31 @@ const EditEntry = () => {
 
   const handleEdit = async () => {
     if (name === '') {
-      console.log('Please enter a name.')
+      setModalMessage('Please enter a name.')
+      setIsErrorModalVisible(true)
       return
     } else if (multiplier <= 0) {
-      console.log('Please enter a number greater than 0.')
+      setModalMessage('Please enter a number greater than 0.')
+      setIsErrorModalVisible(true)
       return
     }
 
     await editEntry(entry, { name, multiplier: multiplier })
-    setIsModalVisible(true)
+    setModalMessage('Entry saved successfully.')
+    setIsSuccessModalVisible(true)
   }
 
   return (
     <View>
       <Modal
-        isVisible={isModalVisible}
-        setIsVisible={setIsModalVisible}
+        isVisible={isErrorModalVisible}
+        setIsVisible={setIsErrorModalVisible}
+        message={modalMessage} />
+      <Modal
+        isVisible={isSuccessModalVisible}
+        setIsVisible={setIsSuccessModalVisible}
         onClose={() => history.push('/')}
-        message={'Entry successfully saved.'} />
+        message={modalMessage} />
       <ViewHeading title={`Edit ${entry.name}'s Entry`} />
       <View style={style.flexRowContainer}>
         <TextInput

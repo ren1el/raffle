@@ -35,8 +35,9 @@ class EntryStorage {
     const isStored = storedEntries.some(storedEntry => storedEntry.name === name)
 
     if (isStored) {
-      console.log(`Tried adding ${name} but they have already been stored`)
-      return storedEntries
+      const errMsg = `Tried adding ${name} but they have already been stored`
+      console.log(errMsg)
+      throw new Error(errMsg)
     }
 
     storedEntries.push({
@@ -56,7 +57,7 @@ class EntryStorage {
 
     if (!isStored) {
       console.log(`Tried removing ${name} but they couldn't be found`)
-      return storedEntries
+      throw new Error(`There was an error removing ${name}. Their name couldn't be found.`)
     }
 
     const updatedEntries = storedEntries.filter(storedEntry => storedEntry.name !== name)
