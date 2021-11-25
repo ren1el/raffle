@@ -66,7 +66,7 @@ const EditEntry = () => {
         setIsVisible={setIsSuccessModalVisible}
         onClose={() => history.push('/')}
         message={modalMessage} />
-      <ViewHeading title={`Edit ${entry.name}'s Entry`} />
+      <ViewHeading title={`Edit ${entry.name}’s Entry`} />
       <View style={style.flexRowContainer}>
         <TextInput
           style={[style.input, style.nameInput]}

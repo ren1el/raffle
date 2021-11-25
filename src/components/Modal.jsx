@@ -35,7 +35,7 @@ const Modal = ({
       <View style={style.mainContainer}>
         <View style={style.messageContainer}>
           <View style={style.messageTextContainer}><Text style={style.messageText}>{message}</Text></View>
-          {showConfirm && <Button containerStyle={style.confirmButton} text={"I'm sure"} onPress={handleConfirm} />}
+          {showConfirm && <Button containerStyle={style.confirmButton} text={'I’m sure'} onPress={handleConfirm} />}
           <Button containerStyle={style.closeButton} text={'Close'} onPress={handleClose} />
         </View>
       </View>
