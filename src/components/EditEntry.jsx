@@ -24,26 +24,35 @@ const EditEntry = () => {
   const [modalMessage, setModalMessage] = useState('')
   const history = useHistory()
   const nameInput = useRef()
-  const multiplierInput = useRef()
 
   useEffect(() => {
     nameInput.current.focus()
   }, [])
 
+  const showErrorModal = (message) => {
+    setModalMessage(message)
+    setIsErrorModalVisible(!isErrorModalVisible)
+  }
+
+  const showSuccessModal = (message) => {
+    setModalMessage(message)
+    setIsSuccessModalVisible(!isSuccessModalVisible)
+  }
+
   const handleEdit = async () => {
     if (name === '') {
-      setModalMessage('Please enter a name.')
-      setIsErrorModalVisible(true)
+      showErrorModal('Please enter a name.')
       return
-    } else if (multiplier <= 0 || isNaN(multiplier)) {
-      setModalMessage('Please enter a number greater than 0.')
-      setIsErrorModalVisible(true)
+    } else if (isNaN(multiplier)) {
+      showErrorModal('Please enter a valid number.')
+      return
+    } else if (multiplier <= 0) {
+      showErrorModal('Please enter a number greater than 0.')
       return
     }
 
     await editEntry(entry, { name, multiplier: multiplier })
-    setModalMessage('Entry saved successfully.')
-    setIsSuccessModalVisible(true)
+    showSuccessModal('Entry saved successfully.')
   }
 
   return (
@@ -72,7 +81,6 @@ const EditEntry = () => {
           keyboardType={'numeric'}
           returnKeyType={'done'}
           onChangeText={(value) => {value === '' ? setMultiplier(0) : setMultiplier(Number.parseInt(value))}}
-          ref={multiplierInput}
           defaultValue={entry.multiplier.toString()} />
       </View>
       <Button
