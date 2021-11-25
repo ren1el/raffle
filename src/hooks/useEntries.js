@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import EntryContext from '../entryContext'
+import EntryContext from '../contexts/entryContext'
 import EntryStorage from '../utils/entryStorage'
 
 const useEntries = () => {
