@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Button from './Button'
 import { useHistory } from 'react-router-native'
@@ -6,8 +6,10 @@ import EntryList from './EntryList'
 import theme from '../theme'
 import Text from './Text'
 import useEntries from '../hooks/useEntries'
+import Modal from './Modal'
 
 const Home = () => {
+  const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false)
   const { entries, clearEntries } = useEntries()
   const history = useHistory()
 
@@ -20,18 +22,39 @@ const Home = () => {
   }
 
   const handleChooseWinner = async () => {
-    if (entries <= 0) {
+    if (entries.length <= 0) {
       return
+    }
+  }
+
+  const handleClearPressed = () => {
+    if (entries.length > 0) {
+      setIsConfirmModalVisible(!isConfirmModalVisible)
     }
   }
 
   return (
     <View style={style.container}>
+      <Modal
+        isVisible={isConfirmModalVisible}
+        setIsVisible={setIsConfirmModalVisible}
+        message={'Are you sure want to clear all of the entries?'}
+        showConfirm
+        onConfirm={() => handleClearEntries()}
+      />
       {entries.length > 0 ? <EntryList /> : <NoEntries />}
       <View>
         <View style={style.addClearContainer}>
-          <Button containerStyle={style.clearButton} text={'Clear'} onPress={() => handleClearEntries()} />
-          <Button containerStyle={style.addButton} text={'Add'} onPress={() => history.push('/add-entry')} />
+          <Button
+            containerStyle={style.clearButton}
+            text={'Clear'}
+            onPress={handleClearPressed}
+          />
+          <Button
+            containerStyle={style.addButton}
+            text={'Add'}
+            onPress={() => history.push('/add-entry')}
+          />
         </View>
         <Button
           text={'Choose a Winner'}

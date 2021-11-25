@@ -4,12 +4,25 @@ import theme from '../theme';
 import Button from './Button';
 import Text from './Text'
 
-const Modal = ({ isVisible, setIsVisible, onClose, message, ...props }) => {
+const Modal = ({
+  isVisible,
+  setIsVisible,
+  onClose,
+  message,
+  showConfirm,
+  onConfirm,
+  ...props
+}) => {
   const handleClose = () => {
     setIsVisible(false)
     if (onClose !== undefined) {
       onClose()
     }
+  }
+
+  const handleConfirm = () => {
+    onConfirm()
+    handleClose()
   }
 
   return (
@@ -21,8 +34,9 @@ const Modal = ({ isVisible, setIsVisible, onClose, message, ...props }) => {
     >
       <View style={style.mainContainer}>
         <View style={style.messageContainer}>
-          <Text style={style.messageText}>{message}</Text>
-          <Button style={style.closeButton} text={'Close'} onPress={handleClose} />
+          <View style={style.messageTextContainer}><Text style={style.messageText}>{message}</Text></View>
+          {showConfirm && <Button containerStyle={style.confirmButton} text={"I'm sure"} onPress={handleConfirm} />}
+          <Button containerStyle={style.closeButton} text={'Close'} onPress={handleClose} />
         </View>
       </View>
     </NativeModal>
@@ -34,29 +48,33 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   messageContainer: {
     width: 200,
     height: 200,
-    position: 'relative',
-    top: -50,
     display: 'flex',
-    justifyContent: 'flex-end',
     borderWidth: 1,
     borderRadius: theme.style.borderRadius,
     backgroundColor: theme.colors.white,
-    paddingBottom: 10,
-    paddingTop: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    padding: 10,
+  },
+  messageTextContainer: {
+    fontSize: theme.fontSizes.modal,
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   messageText: {
     textAlign: 'center',
-    fontSize: theme.fontSizes.modal,
-    marginBottom: 45,
   },
-  closeButton: {},
+  confirmButton: {
+    backgroundColor: theme.colors.pink,
+  },
+  closeButton: {
+    backgroundColor: theme.colors.darkBlue,
+    marginBottom: 0,
+  },
 })
 
 export default Modal
