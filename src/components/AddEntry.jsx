@@ -6,6 +6,7 @@ import Button from './Button'
 import { useHistory } from 'react-router-native'
 import useEntries from '../hooks/useEntries'
 import Modal from './Modal'
+import { EntryExistsError } from '../errors'
 
 const AddEntry = () => {
   const [name, setName] = useState('')
@@ -15,7 +16,6 @@ const AddEntry = () => {
   const [modalMessage, setModalMessage] = useState('')
   const { addEntry } = useEntries()
   const nameInput = useRef()
-  const multiplierInput = useRef()
   const history = useHistory()
 
   useEffect(() => {
@@ -24,30 +24,36 @@ const AddEntry = () => {
 
   const showErrorModal = (message) => {
     setModalMessage(message)
-    setIsErrorModalVisible(true)
+    setIsErrorModalVisible(!isErrorModalVisible)
+  }
+
+  const showSuccessModal = (message) => {
+    setModalMessage(message)
+    setIsSuccessModalVisible(!isSuccessModalVisible)
   }
 
   const handleSave = async () => {
     if (name === '') {
       showErrorModal('Please enter a name.')
       return
-    } else if (multiplier <= 0 || isNaN(multiplier)) {
+    } else if (isNaN(multiplier)) {
+      showErrorModal('Please enter a valid number.')
+      return
+    } else if (multiplier <= 0) {
       showErrorModal('Please enter a number greater than 0.')
       return
     }
 
     try {
       await addEntry(name, multiplier)
+      showSuccessModal('Entry saved successfully.')
     } catch(e) {
-      showErrorModal('This name is already in the raffle.')
-      return
+      if (e instanceof EntryExistsError) {
+        showErrorModal('This name is already in the raffle.')
+      } else {
+        showErrorModal('An unexpected error occurred.')
+      }
     }
-
-    nameInput.current.blur()
-    multiplierInput.current.blur()
-    history.push('/')
-    setModalMessage('Entry saved successfully.')
-    setIsSuccessModalVisible(true)
   }
 
   return (
@@ -55,12 +61,14 @@ const AddEntry = () => {
       <Modal
         isVisible={isErrorModalVisible}
         setIsVisible={setIsErrorModalVisible}
-        message={modalMessage} />
+        message={modalMessage}
+      />
       <Modal
         isVisible={isSuccessModalVisible}
         setIsVisible={setIsSuccessModalVisible}
         onClose={() => history.push('/')}
-        message={modalMessage} />
+        message={modalMessage}
+      />
       <ViewHeading title={'Add Entry'} />
       <View style={style.flexRowContainer}>
         <TextInput
@@ -76,7 +84,6 @@ const AddEntry = () => {
           keyboardType={'numeric'}
           returnKeyType={'done'}
           onChangeText={(value) => {value === '' ? setMultiplier(0) : setMultiplier(Number.parseInt(value))}}
-          ref={multiplierInput}
         />
       </View>
       <Button

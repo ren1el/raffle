@@ -14,10 +14,9 @@ const Modal = ({ isVisible, setIsVisible, onClose, message, ...props }) => {
 
   return (
     <NativeModal
-      animationType="slide"
+      animationType={'slide'}
       transparent={true}
       visible={isVisible}
-      onRequestClose={() => {setIsVisible(!isVisible)}}
       {...props}
     >
       <View style={style.mainContainer}>
