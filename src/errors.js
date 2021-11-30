@@ -3,3 +3,9 @@ export class EntryExistsError extends Error {
     super(message)
   }
 }
+
+export class EntryDoesNotExistError extends Error {
+  constructor(message) {
+    super(message)
+  }
+}

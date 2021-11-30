@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EntryExistsError } from '../errors';
+import { EntryDoesNotExistError, EntryExistsError } from '../errors';
 
 // ex. stored array (as str)
 // [
@@ -57,8 +57,9 @@ class EntryStorage {
     const isStored = storedEntries.some(storedEntry => storedEntry.name === name)
 
     if (!isStored) {
-      console.log(`Tried removing ${name} but they couldn't be found`)
-      throw new Error(`There was an error removing ${name}. Their name couldn't be found.`)
+      const errMsg = `Tried removing ${name} but they couldn't be found`
+      console.log(errMsg)
+      throw new EntryDoesNotExistError(errMsg)
     }
 
     const updatedEntries = storedEntries.filter(storedEntry => storedEntry.name !== name)
