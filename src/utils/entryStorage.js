@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EntryDoesNotExistError, EntryExistsError } from '../errors';
+import { EntryDoesNotExistError, EntryAlreadyExistsError } from '../errors';
 
 // ex. stored array (as str)
 // [
@@ -38,7 +38,7 @@ class EntryStorage {
     if (isStored) {
       const errMsg = `Tried adding ${name} but they have already been stored`
       console.log(errMsg)
-      throw new EntryExistsError(errMsg)
+      throw new EntryAlreadyExistsError(errMsg)
     }
 
     storedEntries.push({

@@ -6,7 +6,7 @@ import Button from './Button'
 import { useHistory } from 'react-router-native'
 import useEntries from '../hooks/useEntries'
 import Modal from './Modal'
-import { EntryExistsError } from '../errors'
+import { EntryAlreadyExistsError } from '../errors'
 
 const AddEntry = () => {
   const [name, setName] = useState('')
@@ -48,7 +48,7 @@ const AddEntry = () => {
       await addEntry(name, multiplier)
       showSuccessModal('Entry saved successfully.')
     } catch(e) {
-      if (e instanceof EntryExistsError) {
+      if (e instanceof EntryAlreadyExistsError) {
         showErrorModal('This name is already in the raffle.')
       } else {
         showErrorModal('An unexpected error occurred.')
