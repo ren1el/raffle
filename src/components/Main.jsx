@@ -7,6 +7,7 @@ import Logo from './Logo';
 import Home from './Home';
 import EditEntry from './EditEntry';
 import useEntries from '../hooks/useEntries';
+import Winner from './Winner';
 
 const Main = () => {
   const { getEntries } = useEntries()
@@ -26,6 +27,9 @@ const Main = () => {
           </Route>
           <Route path="/add-entry" exact>
             <AddEntry />
+          </Route>
+          <Route path="/winner" exact>
+            <Winner />
           </Route>
           <Route path="/edit-entry/:id" exact>
             <EditEntry />

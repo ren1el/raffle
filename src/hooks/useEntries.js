@@ -33,8 +33,12 @@ const useEntries = () => {
     }
 
     if (changes.multiplier !== undefined && changes.multiplier !== entry.multiplier) {
-      const entries = await storageUtil.editMultiplier(entry.name, changes.multiplier)
-      entryContext.setEntries(entries)
+      if (changes.multiplier > 0) {
+        const entries = await storageUtil.editMultiplier(entry.name, changes.multiplier)
+        entryContext.setEntries(entries)
+      } else {
+        await removeEntry(entry.name)
+      }
     }
   }
 

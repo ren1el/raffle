@@ -25,6 +25,8 @@ const Home = () => {
     if (entries.length <= 0) {
       return
     }
+
+    history.push('/winner')
   }
 
   const handleClearPressed = () => {
